@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<div th:insert="fragements/Header.html :: header('css/Result.css','result-page')">
+
+</div>
+<body>
+<div class="main-wrapper">
+    <div class="header" th:insert="fragements/Navbar.html :: navbar">
+    </div>
+
+    <!-- Main Content Start -->
+    <div class="main-container">
+     <div class="card text-light bg-dark py-5 px-4 mx-auto">
+       <img alt="not found" th:src="@{images/exam.svg}">
+         <h3 class="bg-danger mb-5 py-2 text-center">Your Score</h3>
+         <table class="table table-striped table-bordered table-dark">
+             <thead>
+             <tr>
+                 <th scope="col">Field Name</th>
+                 <th scope="col">Score</th>
+                 <th scope="col">Wrong Answers</th>
+             </tr>
+             </thead>
+             <tbody>
+             <tr th:each="score : ${result}">
+                 <td th:text="${score.username}"></td>
+                 <td th:text="${score.totalCorrect}"></td>
+                 <td th:text="${5-score.totalCorrect}"></td>
+             </tr>
+
+             </tbody>
+         </table>
+     </div>
+
+    </div>
+
+    <!-- Main Content End -->
+
+    <!-- Footer Start -->
+
+
+    <div class="footer"  th:insert="fragements/Footer.html :: footer">
+
+    </div>
+
+
+</div>
+<!--Footer Close-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+<script th:src="@{js/GetYear.js}"></script>
+</body>
+</html>

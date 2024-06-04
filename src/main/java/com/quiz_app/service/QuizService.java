@@ -20,7 +20,7 @@ public class QuizService {
         this.questionRepo = questionRepo;
         this.resultRepo = resultRepo;
     }
-
+ 
     public List<Question> getQuestion(){
         List<Question> allQuestions=questionRepo.findAll();
         List<Question> questionList=new ArrayList<>();
@@ -37,7 +37,7 @@ public class QuizService {
     public  int getResult(List<Question> questionList){
       int correct=0;
       for(Question question: questionList){
-          if(question.getAns().equals(question.getChosen())){
+          if(question.getAns()==question.getChose()){
               correct++;
           }
       }

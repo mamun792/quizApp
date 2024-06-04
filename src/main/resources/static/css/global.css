@@ -1,0 +1,56 @@
+:root {
+    --primary-font: 'Poppins', sans-serif;
+    --background-color: #f1f1f1;
+    --font-size-large: 2em;
+    --grid-gap: 5px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    overflow-x: hidden;
+    font-family: var(--primary-font);
+}
+
+.main-wrapper {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: auto 1fr auto;
+
+    grid-gap: var(--grid-gap);
+    grid-template-areas:
+        "h h h h h h h h h h h h"
+        "m m m m m m m m m m m m"
+        "f f f f f f f f f f f f";
+  height: 100vh;
+}
+
+.header {
+    grid-area: h;
+   align-items: flex-start;
+
+}
+
+.main-container {
+    grid-area: m;
+
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+}
+.footer {
+    grid-area: f;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    background-color: #333;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+}

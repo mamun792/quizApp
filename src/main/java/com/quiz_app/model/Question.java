@@ -22,7 +22,7 @@ public class Question {
     private String optionA;
     private String optionB;
     private String optionC;
-    private String ans;
-    private String chosen;
+    private int ans;
+    private int chose;
 
 }
