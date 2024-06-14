@@ -49,6 +49,6 @@ public class QuizService {
     }
 
     public  List<Result> getTopScore(){
-        return resultRepo.findAll(Sort.by(Sort.Direction.DESC," totalCorrect"));
+        return resultRepo.findAll(Sort.by(Sort.Direction.DESC,"totalCorrect"));
     }
 }

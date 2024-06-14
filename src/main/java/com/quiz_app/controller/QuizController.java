@@ -11,53 +11,65 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
 
 
 @Controller
 public class QuizController {
     private final QuizService quizService;
-    private  Result result;
-   private  boolean submitted;
+    private Result result;
+    private boolean submitted;
+
     public QuizController(QuizService quizService) {
         this.quizService = quizService;
-       result=new Result();
-       submitted=false;
+        result = new Result();
+        submitted = false;
     }
 
     @GetMapping("/")
-    public  String getHomePage(){
-        return  "homePage";
+    public String getHomePage() {
+        return "homePage";
     }
 
     @PostMapping("/quiz")
-    public  String Quiz(@RequestParam("username") String username, RedirectAttributes redirectAttributes, Model model){
-        if(username.equals(" ") || username.isEmpty()){
+    public String Quiz(@RequestParam("username") String username, RedirectAttributes redirectAttributes, Model model) {
+        if (username.equals(" ") || username.isEmpty()) {
             redirectAttributes.addFlashAttribute("error", "Username cannot be empty");
             return "redirect:/";
         }
-        submitted=false;
+        submitted = false;
+       result=new Result();
         result.setUsername(username);
-
-        QuestionList questionList=new QuestionList();
+        System.out.println(result.getUsername());
+        QuestionList questionList = new QuestionList();
         questionList.setQuestions(quizService.getQuestion());
 
-        model.addAttribute("qForm",questionList);
-        return  "Quiz";
+        model.addAttribute("qForm", questionList);
+        return "Quiz";
     }
 
     @PostMapping("/submit")
-    public  String submit(@ModelAttribute QuestionList questionList,Model model){
+    public String submit(@ModelAttribute QuestionList questionList, Model model) {
 
-        if(!submitted) {
-            int totalCorrect = quizService.getResult(questionList.getQuestions());
+        if (!submitted) {
+//            int totalCorrect = quizService.getResult(questionList);
 
-            result.setTotalCorrect(totalCorrect);
+            result.setTotalCorrect( quizService.getResult(questionList.getQuestions()));
             quizService.saveResult(result);
-            submitted=true;
-            System.out.println("Ans: " + result.getUsername());
+            submitted = true;
+
         }
 
-        model.addAttribute("result",result);
-        return"Result";
+        model.addAttribute("result", result);
+        return "Result";
     }
+
+    @GetMapping("/scoreboard")
+    public  String Scoreboard(Model model){
+        List<Result> results= quizService.getTopScore();
+        System.out.println(results.toString());
+        model.addAttribute("results",results);
+        return  "Scoreboard";
+    }
+
 }
